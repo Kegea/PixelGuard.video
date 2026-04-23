@@ -1,0 +1,151 @@
+.pricing-page { padding-top: 80px; padding-bottom: 80px; }
+
+/* ── HEADER ── */
+.pricing-header {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 80px 0 60px;
+}
+.pricing-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+.pricing-sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+.billing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.toggle-active { color: var(--text-primary); font-weight: 600; }
+
+/* ── PLANS ── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 0 40px;
+}
+
+.plan-card {
+  position: relative;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  overflow: hidden;
+}
+.plan-card:hover { transform: translateY(-6px); }
+.plan-card.featured {
+  border-color: rgba(108,99,255,0.5);
+  box-shadow: 0 0 40px rgba(108,99,255,0.15);
+}
+.featured-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+}
+
+.plan-header { margin-bottom: 24px; }
+.plan-name { font-family: var(--font-head); font-size: 1.2rem; font-weight: 800; }
+
+.plan-price {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  margin: 12px 0 4px;
+}
+.price-dollar { font-size: 1.2rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+.price-num    { font-family: var(--font-head); font-size: 3rem; font-weight: 900; line-height: 1; color: var(--text-primary); }
+.price-period { font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+.price-custom { font-family: var(--font-head); font-size: 2rem; font-weight: 800; color: var(--accent-light); }
+.price-savings { font-size: 12px; color: var(--teal); margin-bottom: 8px; }
+
+.plan-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-top: 8px; }
+
+.feature-list { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.feature-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.feature-row.inc { color: var(--text-secondary); }
+.feature-row.exc { color: var(--text-muted); opacity: 0.6; }
+.feature-row svg { flex-shrink: 0; }
+
+/* ── TRUST STRIP ── */
+.trust-strip {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px 0;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 720px; margin: 0 auto; }
+.faq-item {
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.faq-item.open { border-color: var(--border-accent); }
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.faq-arrow { color: var(--accent-light); font-size: 20px; font-weight: 300; flex-shrink: 0; }
+.faq-answer {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.cta-banner { border-radius: var(--radius-xl); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .plans-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .plans-grid { grid-template-columns: 1fr; }
+  .trust-strip { gap: 24px; }
+}
+
+/* ── UTILITY REPLACEMENTS ── */
+.pricing-orb-1 { width: 500px; height: 500px; top: -200px; left: -150px; position: absolute; }
+.pricing-orb-2 { width: 400px; height: 400px; top: 0; right: -100px; position: absolute; }
+.toggle-label-size { width: 52px; height: 28px; }
+.badge-save { font-size: 10px; padding: 2px 8px; }
+.plan-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.plan-cta { justify-content: center; margin-bottom: 24px; }
+.cta-banner-padded { padding: 64px 40px; text-align: center; position: relative; overflow: hidden; }
+.pricing-orb-3 { width: 350px; height: 350px; top: -100px; left: -80px; position: absolute; }
+.cta-banner-title { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 12px; }
+.cta-banner-sub { color: var(--text-secondary); margin-bottom: 32px; max-width: 420px; margin: 0 auto 32px; }

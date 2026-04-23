@@ -109,6 +109,45 @@ function applyBlurEffect(
   }
 }
 
+const logoImg = new Image()
+logoImg.src = '/favicon.svg'
+
+function drawWatermark(ctx: CanvasRenderingContext2D, width: number, height: number) {
+  ctx.save()
+  
+  const text = 'PixelGuard'
+  ctx.font = 'bold 24px Inter, system-ui, sans-serif'
+  
+  const textWidth = ctx.measureText(text).width
+  const padding = 20
+  const logoSize = 28
+  const gap = 10
+  
+  const totalWidth = logoSize + gap + textWidth
+  
+  const startX = width - totalWidth - padding
+  const startY = height - Math.max(logoSize, 24) - padding
+  
+  // Apply shadow to both image and text for visibility
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'
+  ctx.shadowBlur = 4
+  ctx.shadowOffsetX = 1
+  ctx.shadowOffsetY = 1
+  
+  if (logoImg.complete && logoImg.naturalWidth > 0) {
+    ctx.globalAlpha = 0.8
+    ctx.drawImage(logoImg, startX, startY, logoSize, logoSize)
+  }
+  
+  ctx.globalAlpha = 1.0
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'middle'
+  ctx.fillText(text, startX + logoSize + gap, startY + logoSize / 2)
+  
+  ctx.restore()
+}
+
 export default function AppPage() {
   const [file, setFile] = useState<File | null>(null)
   const [videoURL, setVideoURL] = useState<string>('')
@@ -304,6 +343,11 @@ export default function AppPage() {
 
       // Manual zones
       for (const z of manualZones) applyBlurEffect(ctx, z, mode, intensity, true)
+
+      const isPro = localStorage.getItem('pixelguard_pro') === 'true'
+      if (!isPro) {
+        drawWatermark(ctx, canvas.width, canvas.height)
+      }
     }
 
     const drawFrame = async () => {
@@ -456,6 +500,13 @@ export default function AppPage() {
         setDownloadURL(URL.createObjectURL(blob))
         setStatus('done')
         setProgress(100)
+        
+        const isPro = localStorage.getItem('pixelguard_pro') === 'true'
+        if (!isPro) {
+          const currentCount = parseInt(localStorage.getItem('pixelguard_processed_count') || '0', 10)
+          localStorage.setItem('pixelguard_processed_count', (currentCount + 1).toString())
+        }
+
         resolve()
       }
     })
@@ -504,6 +555,11 @@ export default function AppPage() {
       }
       
       for (const z of manualZones) applyBlurEffect(ctx, z, mode, intensity, true)
+
+      const isPro = localStorage.getItem('pixelguard_pro') === 'true'
+      if (!isPro) {
+        drawWatermark(ctx, canvas.width, canvas.height)
+      }
 
       setProgress(Math.round((bgVideo.currentTime / duration) * 95))
       requestAnimationFrame(drawAndDetect)
